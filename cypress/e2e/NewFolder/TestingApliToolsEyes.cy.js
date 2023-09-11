@@ -1,7 +1,7 @@
 //import { loginPage } from "../PageObjects/LoginPage.js"
 
 
-describe('Testing Week testing ', () => {
+describe('Testing ApliToolsEyes', () => {
     beforeEach(() => {
 
         // Open Eyes to start visual testing.
@@ -11,8 +11,9 @@ describe('Testing Week testing ', () => {
             // The name of the application under test.
             // All tests for the same app should share the same app name.
             // Set this name wisely: Applitools features rely on a shared app name across tests.
-            appName: 'buscando diferencias',
+            appName: 'Testing Week Steam storage example',
             batchName: Cypress.currentTest.title,
+            matchLevel: 'layout',
 
             // The name of the test case for the given application.
             // Additional unique characteristics of the test may also be specified as part of the test name,
@@ -21,7 +22,7 @@ describe('Testing Week testing ', () => {
         })
     })
 
-    it('Vissually test 1', () => {
+    it('Testing Steam Store man page page and page post filter', () => {
 
         cy.visit("https://store.steampowered.com/")
         cy.eyesCheckWindow({
@@ -34,10 +35,10 @@ describe('Testing Week testing ', () => {
         cy.get("#search_suggestion_contents > a").first().click()
 
         cy.eyesCheckWindow({
-            tag: "Main page",
+            tag: "Post filter page",
             target: 'window',
             fully: false,
-            matchLevel: 'Layout',
+            matchLevel: 'strict',
             ignoreRegions: [{left: 100, top: 100, width: 200, height: 50 } ],
             floatingRegions: [{ region: { left: 100, top: 100, width: 200, height: 50 }, maxUpOffset: 5, maxDownOffset: 5, maxLeftOffset: 5, maxRightOffset: 5 }],
             accessibilityValidation:true
@@ -46,43 +47,6 @@ describe('Testing Week testing ', () => {
     })
 
 
-
-    it('should log into a bank account', () => {
-
-        // Load the login page.
-        cy.visit('https://demo.applitools.com')
-
-        // Verify the full login page loaded correctly.
-        cy.eyesCheckWindow({
-            tag: "Login page",
-            target: 'window',
-            fully: true
-        });
-
-        // Perform login.
-        cy.get('#username').type('andy')
-        cy.get('#password').type('i<3pandas')
-        cy.get('#log-in').click()
-
-        // Verify the full main page loaded correctly.
-        // This snapshot uses LAYOUT match level to avoid differences in closing time text.
-        cy.eyesCheckWindow({
-            tag: "Main page",
-            target: 'window',
-            fully: true,
-            matchLevel: 'Layout'
-        });
-    })
-    it('Vissually test 2', () => {
-        cy.visit("https://drive.google.com/file/d/18PKPPYr2IFvz7i7gryT-VCc0vhufJ7K0/view?usp=drive_link")
-        
-        
-        cy.eyesCheckWindow({
-            tag: "Diff",
-            target: 'window',
-            fully: true,
-            matchLevel: 'Layout'
-        });
 
 
         /*
@@ -99,15 +63,14 @@ describe('Testing Week testing ', () => {
         C:\Users\lmartin\testingWeek\cypress\videos\testingVissually.cy.js.mp4
         */
 
-    })
-
 
 
     // This method performs cleanup after each test.
-    afterEach(() => {
-
-        // Close Eyes to tell the server it should display the results.
-        cy.eyesClose()
+    after(() => {
+        cy.eyesGetAllTestResults().then(summary => {
+            console.log(summary)
+        })
     })
 })
+
 
